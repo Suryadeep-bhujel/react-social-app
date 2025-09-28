@@ -39,7 +39,7 @@ export const authAPI = {
       return response.data;
     } catch (error) {
       // Fallback to mock if backend is not available
-      console.warn('Backend not available, using mock API');
+      console.warn('Backend not available, using mock API', error);
       return await mockAuthAPI.login(email, password);
     }
   },
@@ -59,7 +59,7 @@ export const authAPI = {
       return response.data;
     } catch (error) {
       // Fallback to mock if backend is not available
-      console.warn('Backend not available, using mock API');
+      console.warn('Backend not available, using mock API', error);
       return await mockAuthAPI.register(email, name, password);
     }
   },
@@ -74,7 +74,7 @@ export const authAPI = {
       return response.data;
     } catch (error) {
       // Fallback to mock if backend is not available
-      console.warn('Backend not available, using mock API');
+      console.warn('Backend not available, using mock API', error);
       return await mockAuthAPI.logout();
     }
   },
@@ -88,7 +88,7 @@ export const authAPI = {
       const response = await api.get('/auth/me');
       return response.data;
     } catch (error) {
-      console.warn('Backend not available for user data');
+      console.warn('Backend not available for user data', error);
       return { success: true, data: JSON.parse(localStorage.getItem('user') || '{}') };
     }
   }

@@ -1,7 +1,7 @@
 // Mock authentication service for testing
 export const mockAuthAPI = {
   // Mock login - always succeeds for demo
-  login: async (email, password) => {
+  login: async (email) => {
     // Simulate API delay
     await new Promise(resolve => setTimeout(resolve, 1000));
     
@@ -25,7 +25,7 @@ export const mockAuthAPI = {
   },
 
   // Mock register - always succeeds for demo
-  register: async (email, name, password) => {
+  register: async (email, name) => {
     // Simulate API delay
     await new Promise(resolve => setTimeout(resolve, 1000));
     
