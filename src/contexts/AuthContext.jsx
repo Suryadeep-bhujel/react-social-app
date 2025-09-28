@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState } from 'react';
 
 const AuthContext = createContext();
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
@@ -20,7 +21,7 @@ export const AuthProvider = ({ children }) => {
     avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b789?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80'
   });
 
-  const login = (email, password) => {
+  const login = () => {
     // Simplified login logic for demo
     setIsAuthenticated(true);
     return Promise.resolve();
