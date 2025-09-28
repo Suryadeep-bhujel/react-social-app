@@ -1,0 +1,148 @@
+Complete API List
+Authentication APIs
+text
+POST   /api/auth/register              - Register new user
+POST   /api/auth/login                 - Login user
+POST   /api/auth/logout                - Logout user
+GET    /api/auth/me                    - Get current user profile
+PUT    /api/auth/updatedetails         - Update user profile
+PUT    /api/auth/updatepassword        - Update password
+POST   /api/auth/forgotpassword        - Send password reset email
+PUT    /api/auth/resetpassword/:token  - Reset password
+GET    /api/auth/verify-email/:token   - Verify email address
+User Management APIs
+text
+GET    /api/users                      - Get all users (paginated)
+GET    /api/users/search               - Search users by username/name
+GET    /api/users/suggestions          - Get suggested users to follow
+GET    /api/users/:id                  - Get user profile by ID
+GET    /api/users/:id/followers        - Get user followers list
+GET    /api/users/:id/following        - Get user following list
+POST   /api/users/:id/follow           - Follow a user
+DELETE /api/users/:id/follow           - Unfollow a user
+POST   /api/users/upload-avatar        - Upload profile picture
+DELETE /api/users/deactivate           - Deactivate account
+Posts APIs
+text
+GET    /api/posts                      - Get feed posts (following + public)
+GET    /api/posts/:id                  - Get single post by ID
+POST   /api/posts                      - Create new post
+PUT    /api/posts/:id                  - Update post
+DELETE /api/posts/:id                  - Delete post
+POST   /api/posts/:id/like             - Toggle like on post
+POST   /api/posts/:id/comments         - Add comment to post
+DELETE /api/posts/:id/comments/:commentId - Delete comment
+GET    /api/posts/user/:userId         - Get posts by specific user
+POST   /api/posts/upload               - Upload post images
+Hashtags APIs
+text
+GET    /api/hashtags                   - Get trending hashtags
+GET    /api/hashtags/:name             - Get posts by hashtag
+GET    /api/hashtags/trending          - Get top trending hashtags
+GET    /api/hashtags/search            - Search hashtags
+Notifications APIs
+text
+GET    /api/notifications              - Get user notifications
+PUT    /api/notifications/:id/read     - Mark notification as read
+PUT    /api/notifications/mark-all-read - Mark all notifications as read
+DELETE /api/notifications/:id          - Delete notification
+GET    /api/notifications/unread-count - Get unread notifications count
+Messaging APIs
+text
+GET    /api/messages/conversations     - Get all conversations
+GET    /api/messages/:userId           - Get messages with specific user
+POST   /api/messages                   - Send new message
+DELETE /api/messages/:id               - Delete message
+PUT    /api/messages/:id/read          - Mark message as read
+File Upload APIs
+text
+POST   /api/upload/image               - Upload single image
+POST   /api/upload/images              - Upload multiple images
+DELETE /api/upload/:publicId           - Delete uploaded image
+Search APIs
+text
+GET    /api/search                     - Global search (users, posts, hashtags)
+GET    /api/search/users               - Search users
+GET    /api/search/posts               - Search posts
+GET    /api/search/hashtags            - Search hashtags
+Analytics APIs (Optional)
+text
+GET    /api/analytics/dashboard        - User analytics dashboard
+GET    /api/analytics/posts/:id        - Post analytics
+GET    /api/analytics/engagement       - User engagement stats
+API Request/Response Examples
+Create Post
+Request:
+
+text
+POST /api/posts
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "content": "Just finished an amazing hike in the mountains! The view was absolutely breathtaking 🏔️ #NatureLover #Adventure",
+  "images": [
+    {
+      "public_id": "posts/abc123",
+      "url": "https://res.cloudinary.com/demo/image/upload/v123/posts/abc123.jpg"
+    }
+  ],
+  "visibility": "public"
+}
+Response:
+
+json
+{
+  "success": true,
+  "message": "Post created successfully",
+  "data": {
+    "_id": "64f8a1b2c3d4e5f6a7b8c9d0",
+    "content": "Just finished an amazing hike...",
+    "hashtags": ["naturelover", "adventure"],
+    "user": {
+      "_id": "64f8a1b2c3d4e5f6a7b8c9d1",
+      "username": "sarahjohnson",
+      "firstName": "Sarah",
+      "lastName": "Johnson",
+      "profilePicture": {
+        "url": "https://example.com/avatar.jpg"
+      }
+    },
+    "likesCount": 0,
+    "commentsCount": 0,
+    "createdAt": "2024-09-14T13:50:00.000Z"
+  }
+}
+Get Notifications
+Response:
+
+json
+{
+  "success": true,
+  "count": 4,
+  "unreadCount": 2,
+  "data": [
+    {
+      "_id": "64f8a1b2c3d4e5f6a7b8c9d2",
+      "type": "like",
+      "message": "Mike Chen liked your post about mountain hiking",
+      "sender": {
+        "username": "mikechen",
+        "profilePicture": {"url": "..."}
+      },
+      "isRead": false,
+      "createdAt": "2024-09-14T13:48:00.000Z"
+    },
+    {
+      "_id": "64f8a1b2c3d4e5f6a7b8c9d3",
+      "type": "comment",
+      "message": "Emily Davis commented: 'Wow! Where is this exactly? Looks incredible! 😍'",
+      "sender": {
+        "username": "emilydavis",
+        "profilePicture": {"url": "..."}
+      },
+      "isRead": false,
+      "createdAt": "2024-09-14T13:45:00.000Z"
+    }
+  ]
+}
